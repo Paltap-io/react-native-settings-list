@@ -301,7 +301,7 @@ SettingsList.Item = createReactClass({
     /**
      * Title being displayed
      */
-    title: PropTypes.string,
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     titleStyle: Text.propTypes.style,
     /**
      * Icon displayed on the left of the settings item
@@ -378,7 +378,7 @@ SettingsList.Item = createReactClass({
     /**
      * Right side information on the setting item
      */
-    titleInfo: PropTypes.string,
+    titleInfo: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     titleInfoStyle: Text.propTypes.style,
     /**
      * If 'Bottom', info is placed beneath the title
