@@ -22,6 +22,7 @@ class SettingsList extends React.Component {
   static propTypes = {
     backgroundColor: PropTypes.string,
     borderColor: PropTypes.string,
+    borderHideGroup: PropTypes.bool,
     defaultItemSize: PropTypes.number,
     underlayColor: PropTypes.string,
     defaultTitleStyle: Text.propTypes.style,
@@ -32,6 +33,7 @@ class SettingsList extends React.Component {
   static defaultProps ={
     backgroundColor: 'white',
     borderColor: 'black',
+    borderHideGroup: false,
     defaultItemSize: 50,
     underlayColor: 'transparent',
     defaultTitleStyle: {fontSize: 16}
@@ -93,9 +95,17 @@ class SettingsList extends React.Component {
       )
     } else {
       let items;
+      let borderTopWidth = 1;
+      let borderBottomWidth = 1;
+
+      if (this.props.borderHideGroup) {
+        borderTopWidth = 0;
+        borderBottomWidth = 0;
+      }
+
       if (group.items.length > 0) {
         items = (
-          <View style={{borderTopWidth:1, borderBottomWidth:1, borderColor: this.props.borderColor}}>
+          <View style={{borderTopWidth, borderBottomWidth, borderColor: this.props.borderColor}}>
             {group.items.map((item, index) => {
               return this._itemView(item,index, group.items.length);
             })}
