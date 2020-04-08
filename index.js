@@ -145,27 +145,52 @@ class SettingsList extends React.Component {
 
   _itemTitleBlock(item, index, position) {
     return ([
-      <Text
-          key={'itemTitle_' + index}
-          style={[
-            item.titleStyle ? item.titleStyle : this.props.defaultTitleStyle,
-            position === 'Bottom' ? null : styles.titleText
-          ]}>
-          {item.title}
-      </Text>,
-      item.titleInfo ?
+      typeof item.title === 'string' ?
         <Text
+            key={'itemTitle_' + index}
+            style={[
+              item.titleStyle ? item.titleStyle : this.props.defaultTitleStyle,
+              position === 'Bottom' ? null : styles.titleText
+            ]}>
+            {item.title}
+        </Text>
+        :
+        (typeof item.title === 'object' ?
+          <View
+            key={'itemTitle_' + index}
+            style={[
+              item.titleStyle ? item.titleStyle : this.props.defaultTitleStyle,
+              position === 'Bottom' ? null : styles.titleText
+            ]}>
+            {item.title}
+          </View>
+        : null),
+      typeof item.titleInfo === 'string' ?
+        <Text
+          key={'itemTitleInfo_' + index}
+          style={[
+            item.rightSideStyle ? item.rightSideStyle
+            :
+              position === 'Bottom' ? null : styles.rightSide,
+              {color: '#B1B1B1'},
+            item.titleInfoStyle
+          ]}>
+          {item.titleInfo}
+        </Text>
+      :
+        (typeof item.titleInfo === 'object' ?
+          <View
             key={'itemTitleInfo_' + index}
             style={[
-              item.rightSideStyle ? item.rightSideStyle
-              :
-                position === 'Bottom' ? null : styles.rightSide,
-                {color: '#B1B1B1'},
-              item.titleInfoStyle
-            ]}>
+            item.rightSideStyle ? item.rightSideStyle
+            :
+              position === 'Bottom' ? null : styles.rightSide,
+              {color: '#B1B1B1'},
+            item.titleInfoStyle
+          ]}>
             {item.titleInfo}
-        </Text>
-        : null
+          </View>
+        : null)
     ])
   }
 
