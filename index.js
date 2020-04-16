@@ -31,6 +31,7 @@ class SettingsList extends React.Component {
   };
 
   static defaultProps ={
+    visible: true,
     backgroundColor: 'white',
     borderColor: 'black',
     borderHideGroup: false,
@@ -83,6 +84,7 @@ class SettingsList extends React.Component {
 
   _groupView(group, index){
     if(group.header){
+      if (group.header.visible) {
       return (
         <View key={'group_' + index}>
           <Text style={[{margin:5},group.header.headerStyle]} numberOfLines={group.header.headerNumberOfLines} ellipsizeMode="tail" ref={group.header.headerRef}>{group.header.headerText}</Text>
@@ -91,8 +93,10 @@ class SettingsList extends React.Component {
               return this._itemView(item,index, group.items.length);
             })}
           </View>
-        </View>
-      )
+        </View>)
+      } else {
+        return null
+      }
     } else {
       let items;
       let borderTopWidth = 1;
@@ -107,7 +111,7 @@ class SettingsList extends React.Component {
         items = (
           <View style={{borderTopWidth, borderBottomWidth, borderColor: this.props.borderColor}}>
             {group.items.map((item, index) => {
-              return this._itemView(item,index, group.items.length);
+                return this._itemView(item,index, group.items.length);
             })}
           </View>
         );
@@ -196,6 +200,10 @@ class SettingsList extends React.Component {
 
   _itemView(item, index, max){
     var border;
+
+    if (!item.visible) {
+      return;
+    }
 
     if (item.type && item.type.displayName) {
         return item;
@@ -310,6 +318,7 @@ const styles = StyleSheet.create({
  */
 SettingsList.Header = createReactClass({
   propTypes: {
+    visible: PropTypes.bool,
     headerText: PropTypes.string,
     headerStyle: Text.propTypes.style,
     headerRef: PropTypes.func,
@@ -317,6 +326,7 @@ SettingsList.Header = createReactClass({
   },
   getDefaultProps() {
     return {
+      visible: true,
       headerNumberOfLines: 1,
     };
   },
@@ -333,6 +343,10 @@ SettingsList.Header = createReactClass({
  */
 SettingsList.Item = createReactClass({
   propTypes: {
+    /**
+     * Should this item render?
+     */
+    visible: PropTypes.bool,
     /**
      * Title being displayed
      */
@@ -430,6 +444,7 @@ SettingsList.Item = createReactClass({
   },
   getDefaultProps(){
     return {
+      visible: true,
       hasNavArrow: true
     }
   },
