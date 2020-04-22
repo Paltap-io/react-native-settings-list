@@ -85,10 +85,19 @@ class SettingsList extends React.Component {
   _groupView(group, index){
     if(group.header){
       if (group.header.visible) {
-      return (
+        let border = {borderTopWidth:1, borderBottomWidth:1};
+        if (group.header.borderHide) {
+          switch(group.header.borderHide) {
+            case 'Top' : border = {borderTopWidth:0, borderBottomWidth:1}; break;
+            case 'Bottom' : border = {borderTopWidth:1, borderBottomWidth:0}; break;
+            case 'Both' : border = {borderTopWidth:0, borderBottomWidth:0}; break;
+          }
+        }
+  
+        return (
         <View key={'group_' + index}>
           <Text style={[{margin:5},group.header.headerStyle]} numberOfLines={group.header.headerNumberOfLines} ellipsizeMode="tail" ref={group.header.headerRef}>{group.header.headerText}</Text>
-          <View style={{borderTopWidth:1, borderBottomWidth:1, borderColor: this.props.borderColor}}>
+          <View style={[border, {borderColor: this.props.borderColor }]}>
             {group.items.map((item, index) => {
               return this._itemView(item,index, group.items.length);
             })}
@@ -323,6 +332,7 @@ SettingsList.Header = createReactClass({
     headerStyle: Text.propTypes.style,
     headerRef: PropTypes.func,
     headerNumberOfLines: PropTypes.number,
+    headerBorderHide: PropTypes.string,
   },
   getDefaultProps() {
     return {
