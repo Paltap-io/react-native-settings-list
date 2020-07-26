@@ -16,6 +16,8 @@ import {
   ViewPropTypes
 } from 'react-native';
 
+import RNPickerSelect from 'react-native-picker-select';
+
 const ARROW_ICON = require('./img/icon-arrow-settings.png');
 
 class SettingsList extends React.Component {
@@ -274,6 +276,18 @@ class SettingsList extends React.Component {
                 onValueChange={(value) => item.switchOnValueChange(value)}
                 value={item.switchState}/>
                 : null}
+            {item.hasPicker ?
+              <RNPickerSelect
+                placeholder={placeholder}
+                items={item.pickerItems}
+                onValueChange={(value) => item.switchOnValueChange(value)}
+                onUpArrow={() => {}}
+                onDownArrow={() => {}}
+                style={{}}
+                value={item.pickerValue}
+                ref={el => {}}
+              />
+              : null}
             {this.itemArrowIcon(item)}
           </View>
         }
@@ -434,6 +448,22 @@ SettingsList.Item = createReactClass({
      * On value change callback
      */
     switchOnValueChange: PropTypes.func,
+    /**
+     * Enable or disable a RNPickerSelect component
+     */
+    hasPicker: PropTypes.bool,
+    /**
+     * RNPickerSelect value
+     */
+    pickerValue: PropTypes.string,
+    /**
+     * RNPickerSelect props
+     */
+    pickerProps: PropTypes.object,
+    /**
+     * On value change callback
+     */
+    pickerOnValueChange: PropTypes.func,
     /**
      * Right side information on the setting item
      */
