@@ -277,16 +277,26 @@ class SettingsList extends React.Component {
                 value={item.switchState}/>
                 : null}
             {item.hasPicker ?
+            <View style={{position: 'absolute', width: '100%', height: '100%'}}>
               <RNPickerSelect
-                placeholder={placeholder}
+                placeholder={item.pickerPlaceholder}
                 items={item.pickerItems}
-                onValueChange={(value) => item.switchOnValueChange(value)}
-                onUpArrow={() => {}}
-                onDownArrow={() => {}}
-                style={{}}
+                onValueChange={(value) => item.pickerOnValueChange(value)}
+                onUpArrow={item.pickerOnUpArrow}
+                onDownArrow={item.pickerOnDownArrow}
+                onDonePress={item.pickerOnDonePress}
+                onOpen={item.pickerOnOpen}
+                onClose={item.pickerOnClose}
+                disabled={item.pickerDisabled}
+                style={{
+                  inputIOS: [...item.titleInfoStyle, {height: '100%', textAlign: 'right', paddingRight: 40}],
+                  done: {...item.pickerAccessoryStyle},
+                  doneDepressed: {fontSize: 17},
+                  chevronActive: {...item.pickerAccessoryStyle},
+                }}
                 value={item.pickerValue}
                 ref={el => {}}
-              />
+              /></View>
               : null}
             {this.itemArrowIcon(item)}
           </View>
@@ -460,6 +470,22 @@ SettingsList.Item = createReactClass({
      * RNPickerSelect props
      */
     pickerProps: PropTypes.object,
+    /**
+     * RNPickerSelect accessory bar style
+     */
+    pickerAccessoryStyle: Text.propTypes.style,
+    /**
+     * RNPickerSelect accessory bar callbacks
+     */
+    pickerOnUpArrow: PropTypes.func,
+    pickerOnDownArrow: PropTypes.func,
+    pickerOnDonePress: PropTypes.func,
+    pickerOnClose: PropTypes.func,
+    pickerOnOpen: PropTypes.func,
+    /**
+     * Disable interaction with RNPickerSelect
+     */
+    pickerDisabled: PropTypes.bool,
     /**
      * On value change callback
      */
