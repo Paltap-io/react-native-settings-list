@@ -29,6 +29,7 @@
     "react-native": ">=0.18.0"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^2.6.1",
     "create-react-class": "^15.6.2",
     "prop-types": "^15.5.10",
     "react-native-picker-select": "^7.0.0"
