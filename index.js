@@ -16,7 +16,7 @@ import {
   ViewPropTypes
 } from 'react-native';
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePickerModal from "@react-native-community/react-native-modal-datetime-picker";
 import RNPickerSelect from 'react-native-picker-select';
 
 const ARROW_ICON = require('./img/icon-arrow-settings.png');
