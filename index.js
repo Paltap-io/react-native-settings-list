@@ -16,7 +16,6 @@ import {
   ViewPropTypes
 } from 'react-native';
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import RNPickerSelect from 'react-native-picker-select';
 
 const ARROW_ICON = require('./img/icon-arrow-settings.png');
@@ -277,9 +276,10 @@ class SettingsList extends React.Component {
                 onValueChange={(value) => item.switchOnValueChange(value)}
                 value={item.switchState}/>
                 : null}
-            {item.hasPicker ?
+            {item.hasPicker || item.hasDatePicker ?
             <View style={{position: 'absolute', width: '100%', height: '100%'}}>
               <RNPickerSelect
+                useDatePicker={item.hasDatePicker}
                 placeholder={item.pickerPlaceholder}
                 items={item.pickerItems}
                 onValueChange={(value) => item.pickerOnValueChange(value)}
@@ -298,16 +298,6 @@ class SettingsList extends React.Component {
                 value={item.pickerValue}
                 ref={el => {}}
               /></View>
-              : null}
-            {item.hasDatePicker ?
-            <View style={{position: 'absolute', width: '100%', height: '100%'}}>
-              <DateTimePickerModal
-                isVisible={true}
-                mode="date"
-                onConfirm={item.pickerOnConfirm}
-                onCancel={item.pickerOnClose}
-              />
-            </View>
               : null}
             {this.itemArrowIcon(item)}
           </View>
