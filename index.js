@@ -276,12 +276,14 @@ class SettingsList extends React.Component {
                 onValueChange={(value) => item.switchOnValueChange(value)}
                 value={item.switchState}/>
                 : null}
-            {item.hasPicker ?
+            {item.hasPicker || item.hasDatePicker ?
             <View style={{position: 'absolute', width: '100%', height: '100%'}}>
               <RNPickerSelect
+                useDatePicker={item.hasDatePicker}
                 placeholder={item.pickerPlaceholder}
-                items={item.pickerItems}
-                onValueChange={(value) => item.pickerOnValueChange(value)}
+                items={item.pickerItems || []}
+                itemWidth={item.pickerItemWidth}
+                onValueChange={item.pickerOnValueChange}
                 onUpArrow={item.pickerOnUpArrow}
                 onDownArrow={item.pickerOnDownArrow}
                 onDonePress={item.pickerOnDonePress}
@@ -295,7 +297,7 @@ class SettingsList extends React.Component {
                   chevronActive: {...item.pickerAccessoryStyle},
                 }}
                 value={item.pickerValue}
-                ref={el => {}}
+                {...item.pickerProps}
               /></View>
               : null}
             {this.itemArrowIcon(item)}
@@ -465,7 +467,7 @@ SettingsList.Item = createReactClass({
     /**
      * RNPickerSelect value
      */
-    pickerValue: PropTypes.string,
+    pickerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     /**
      * RNPickerSelect props
      */
