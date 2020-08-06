@@ -153,7 +153,8 @@ class SettingsList extends React.Component {
               style={item.editableTextStyle ? item.editableTextStyle : styles.editableText}
               placeholder = {item.placeholder}
               onChangeText={(text) => item.onTextChange(text)}
-              value={item.value} />
+              value={item.value}
+              keyboardType={item.editableKeyboard || 'default'} />
         : null
     ])
   }
