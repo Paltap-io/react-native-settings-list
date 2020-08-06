@@ -282,7 +282,8 @@ class SettingsList extends React.Component {
                 useDatePicker={item.hasDatePicker}
                 placeholder={item.pickerPlaceholder}
                 items={item.pickerItems || []}
-                onValueChange={(value) => item.pickerOnValueChange(value)}
+                itemWidth={item.pickerItemWidth}
+                onValueChange={item.pickerOnValueChange}
                 onUpArrow={item.pickerOnUpArrow}
                 onDownArrow={item.pickerOnDownArrow}
                 onDonePress={item.pickerOnDonePress}
