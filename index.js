@@ -284,6 +284,7 @@ class SettingsList extends React.Component {
                 placeholder={item.pickerPlaceholder}
                 items={item.pickerItems || []}
                 itemWidth={item.pickerItemWidth}
+                valueToString={item.pickerValueToString}
                 onValueChange={item.pickerOnValueChange}
                 onUpArrow={item.pickerOnUpArrow}
                 onDownArrow={item.pickerOnDownArrow}
