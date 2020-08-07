@@ -19,6 +19,7 @@ import {
 import RNPickerSelect from 'react-native-picker-select';
 
 const ARROW_ICON = require('./img/icon-arrow-settings.png');
+const CHECK_ICON = require('./img/icon-check-settings.png');
 
 class SettingsList extends React.Component {
   static propTypes = {
@@ -153,8 +154,7 @@ class SettingsList extends React.Component {
               style={item.editableTextStyle ? item.editableTextStyle : styles.editableText}
               placeholder = {item.placeholder}
               onChangeText={(text) => item.onTextChange(text)}
-              value={item.value}
-              keyboardType={item.editableKeyboard || 'default'} />
+              value={item.value} />
         : null
     ])
   }
@@ -281,7 +281,6 @@ class SettingsList extends React.Component {
             <View style={{position: 'absolute', width: '100%', height: '100%'}}>
               <RNPickerSelect
                 useDatePicker={item.hasDatePicker}
-                dateFormat={item.pickerDateFormat}
                 placeholder={item.pickerPlaceholder}
                 items={item.pickerItems || []}
                 itemWidth={item.pickerItemWidth}
@@ -293,11 +292,7 @@ class SettingsList extends React.Component {
                 onClose={item.pickerOnClose}
                 disabled={item.pickerDisabled}
                 style={{
-                  inputIOS: [...item.titleInfoStyle, {
-                    height: '100%',
-                    textAlign: 'right',
-                    paddingRight: item.hasDatePicker ? (item.hasNavArrow ? 40 : 15) : 40
-                  }],
+                  inputIOS: [...item.titleInfoStyle, {height: '100%', textAlign: 'right', paddingRight: 40}],
                   done: {...item.pickerAccessoryStyle},
                   doneDepressed: {fontSize: 17},
                   chevronActive: {...item.pickerAccessoryStyle},
@@ -320,8 +315,11 @@ class SettingsList extends React.Component {
     }
 
     if(item.hasNavArrow){
-        return <Image style={[styles.rightSide, item.arrowStyle]} source={ARROW_ICON} />;
+        return <Image style={[styles.rightSide, styles.arrowStyle, item.arrowStyle]} source={ARROW_ICON} />;
     }
+    if(item.hasCheckmark){
+      return <Image style={[styles.rightSide, styles.checkmarkStyle, item.checkmarkStyle]} source={CHECK_ICON} />;
+  }
 
     return null;
   }
@@ -342,6 +340,14 @@ const styles = StyleSheet.create({
   titleText: {
     flex:1,
     alignSelf:'center'
+  },
+  arrowStyle: {
+    height: 13,
+    width: 8,
+  },
+  checkmarkStyle: {
+    height: 25,
+    width: 25,
   },
   rightSide: {
     marginRight:15,
@@ -450,6 +456,13 @@ SettingsList.Item = createReactClass({
     arrowIcon: PropTypes.node,
 
     arrowStyle: Image.propTypes.style,
+    /**
+     * Enable or disable a checkmark at the end of the setting item.
+     */
+    hasCheckmark: PropTypes.bool,
+    checkmarkIcon: PropTypes.node,
+
+    checkmarkStyle: Image.propTypes.style,
     /**
      * Enable or disable a Switch component
      */
