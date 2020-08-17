@@ -20,6 +20,7 @@ import RNPickerSelect from 'react-native-picker-select';
 
 const ARROW_ICON = require('./img/icon-arrow-settings.png');
 const CHECK_ICON = require('./img/icon-check-settings.png');
+const INFO_ICON = require('./img/icon-info-settings.png');
 
 class SettingsList extends React.Component {
   static propTypes = {
@@ -303,6 +304,7 @@ class SettingsList extends React.Component {
               /></View>
               : null}
             {this.itemCheckmarkIcon(item)}
+            {this.itemInfoIcon(item)}
             {this.itemArrowIcon(item)}
           </View>
         }
@@ -329,7 +331,25 @@ class SettingsList extends React.Component {
     }
 
     if (item.hasCheckmark) {
-      return <Image style={[styles.rightSide, styles.checkmarkStyle, item.checkmarkStyle]} source={CHECK_ICON} />;
+      return <Image style={[styles.rightSide, item.hasInfo ? styles.checkmarkRight : null, styles.checkmarkStyle, item.checkmarkStyle]} source={CHECK_ICON} />;
+    }
+
+    return null;
+  }
+
+  itemInfoIcon(item) {
+    if (item.infoIcon) {
+      return item.infoIcon;
+    }
+
+    if (item.hasInfo) {
+      return (
+        <TouchableHighlight accessible={false} underlayColor={item.underlayColor ? item.underlayColor : this.props.underlayColor} onPress={item.onPressInfo} ref={item.itemRef}>
+          <View style={styles.infoTouch}>
+            <Image style={[styles.rightSide, styles.infoStyle, item.infoStyle]} source={INFO_ICON} />
+          </View>
+        </TouchableHighlight>
+      )
     }
 
     return null;
@@ -342,8 +362,8 @@ const styles = StyleSheet.create({
   itemBox: {
     flex:1,
     justifyContent:'center',
-    flexDirection:'row'
-  },
+    flexDirection:'row',
+},
   titleBox: {
     flex:1,
     marginLeft:15,
@@ -360,6 +380,20 @@ const styles = StyleSheet.create({
   checkmarkStyle: {
     height: 25,
     width: 25,
+  },
+  checkmarkRight: {
+    marginRight: 0,
+  },
+  infoStyle: {
+    height: 25,
+    width: 25,
+    alignSelf: 'flex-end',
+  },
+  infoTouch: {
+    width: 50,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
   },
   rightSide: {
     marginRight:15,
@@ -475,6 +509,20 @@ SettingsList.Item = createReactClass({
     checkmarkIcon: PropTypes.node,
 
     checkmarkStyle: Image.propTypes.style,
+    /**
+     * Enable or disable a info at the end of the setting item.
+     * Info icon defines item hotspot.
+     */
+    hasInfo: PropTypes.bool,
+    infoIcon: PropTypes.node,
+
+    infoStyle: Image.propTypes.style,
+    /**
+     * Called when info icon is pressed.
+     */
+    onPressInfo: PropTypes.func,
+
+    infoStyle: Image.propTypes.style,
     /**
      * Enable or disable a Switch component
      */
