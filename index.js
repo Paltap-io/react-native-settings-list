@@ -302,6 +302,7 @@ class SettingsList extends React.Component {
                 {...item.pickerProps}
               /></View>
               : null}
+            {this.itemCheckmarkIcon(item)}
             {this.itemArrowIcon(item)}
           </View>
         }
@@ -311,19 +312,29 @@ class SettingsList extends React.Component {
   }
 
   itemArrowIcon(item) {
-    if(item.arrowIcon) {
-        return item.arrowIcon;
+    if (item.arrowIcon) {
+      return item.arrowIcon;
     }
 
-    if(item.hasNavArrow){
-        return <Image style={[styles.rightSide, styles.arrowStyle, item.arrowStyle]} source={ARROW_ICON} />;
+    if (item.hasNavArrow) {
+      return <Image style={[styles.rightSide, styles.arrowStyle, item.arrowStyle]} source={ARROW_ICON} />;
     }
-    if(item.hasCheckmark){
-      return <Image style={[styles.rightSide, styles.checkmarkStyle, item.checkmarkStyle]} source={CHECK_ICON} />;
-  }
 
     return null;
   }
+
+  itemCheckmarkIcon(item) {
+    if (item.checkmarkIcon) {
+      return item.checkmarkIcon;
+    }
+
+    if (item.hasCheckmark) {
+      return <Image style={[styles.rightSide, styles.checkmarkStyle, item.checkmarkStyle]} source={CHECK_ICON} />;
+    }
+
+    return null;
+  }
+
 }
 module.exports = SettingsList;
 
