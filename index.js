@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 
 import RNPickerSelect from 'react-native-picker-select';
+import {SwipeRow} from 'react-native-swipe-list-view';
 
 const ARROW_ICON = require('./img/icon-arrow-settings.png');
 const CHECK_ICON = require('./img/icon-check-settings.png');
@@ -139,8 +140,8 @@ class SettingsList extends React.Component {
   }
 
   _itemEditableBlock(item, index, position) {
-
     return ([
+      item.title ?
         <Text
             key={'itemTitle_' + index}
             style={[
@@ -148,7 +149,8 @@ class SettingsList extends React.Component {
               position === 'Bottom' ? null : styles.titleText
             ]}>
             {item.title}
-        </Text>,
+        </Text>
+        : null,
         item.isEditable ?
         <TextInput
               key={item.id}
@@ -262,14 +264,13 @@ class SettingsList extends React.Component {
                 </View>
               </View>
             </View>
-          :
+          : !item.hasSwipe ?
           <View style={item.titleBoxStyle ? item.titleBoxStyle : [styles.titleBox, border, {minHeight:item.itemWidth ? item.itemWidth : this.props.defaultItemSize}]}>
             {titleInfoPosition === 'Bottom' ?
-                <View style={{flexDirection:'column',flex:1,justifyContent:'center'}}>
-                    {item.isEditable ? this._itemEditableBlock(item, inde, 'Bottom') : this._itemTitleBlock(item, index, 'Bottom')}
-                </View>
-              : item.isEditable ? this._itemEditableBlock(item, index) : this._itemTitleBlock(item, index)}
-
+              <View style={{flexDirection:'column',flex:1,justifyContent:'center'}}>
+                {item.isEditable ? this._itemEditableBlock(item, inde, 'Bottom') : this._itemTitleBlock(item, index, 'Bottom')}
+              </View>
+            : item.isEditable ? this._itemEditableBlock(item, index) : this._itemTitleBlock(item, index)}
             {item.rightSideContent ? item.rightSideContent : null}
             {item.hasSwitch ?
               <Switch
@@ -277,7 +278,7 @@ class SettingsList extends React.Component {
                 style={styles.rightSide}
                 onValueChange={(value) => item.switchOnValueChange(value)}
                 value={item.switchState}/>
-                : null}
+            : null}
             {item.hasPicker || item.hasDatePicker ?
             <View style={{position: 'absolute', width: '100%', height: '100%'}}>
               <RNPickerSelect
@@ -307,7 +308,31 @@ class SettingsList extends React.Component {
             {this.itemInfoIcon(item)}
             {this.itemArrowIcon(item)}
           </View>
-        }
+          : 
+          <View style={{flex: 1}}>
+            <SwipeRow
+              style={{}}
+              rightOpenValue={-75}
+              friction={100}
+              disableRightSwipe={true}>
+              <View style={[item.swipeHiddenStyle]}>
+                <Text/>
+                <Text>{'Delete'}</Text>
+              </View>
+              <View style={item.titleBoxStyle ? item.titleBoxStyle : [styles.titleBox, border, {backgroundColor: '#fff',minHeight:item.itemWidth ? item.itemWidth : this.props.defaultItemSize}]}>
+                {titleInfoPosition === 'Bottom' ?
+                <View style={{flexDirection:'column',flex:1,justifyContent:'center'}}>
+                  {item.isEditable ? this._itemEditableBlock(item, inde, 'Bottom') : this._itemTitleBlock(item, index, 'Bottom')}
+                </View>
+                : item.isEditable ? this._itemEditableBlock(item, index) : this._itemTitleBlock(item, index)}
+                {item.rightSideContent ? item.rightSideContent : null}
+                {this.itemCheckmarkIcon(item)}
+                {this.itemInfoIcon(item)}
+                {this.itemArrowIcon(item)}
+              </View>
+            </SwipeRow>
+          </View>
+          }
         </View>
       </TouchableHighlight>
     )
@@ -366,7 +391,7 @@ const styles = StyleSheet.create({
 },
   titleBox: {
     flex:1,
-    marginLeft:15,
+    paddingLeft:15,
     flexDirection:'row'
   },
   titleText: {
@@ -402,7 +427,7 @@ const styles = StyleSheet.create({
   editableText: {
     flex: 1,
     textAlign: 'right',
-    marginRight: 15
+    marginRight: 15,
   }
 });
 
@@ -567,6 +592,10 @@ SettingsList.Item = createReactClass({
      * Disable interaction with RNPickerSelect
      */
     pickerDisabled: PropTypes.bool,
+    /**
+     * Enable or disable swipable component
+     */
+    hasSwipe: PropTypes.bool,
     /**
      * On value change callback
      */
