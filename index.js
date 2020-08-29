@@ -286,6 +286,8 @@ class SettingsList extends React.Component {
                 placeholder={item.pickerPlaceholder}
                 items={item.pickerItems || []}
                 itemWidth={item.pickerItemWidth}
+                labels={item.pickerLabels || []}
+                labelWidth={item.pickerLabelWidth}
                 valueToString={item.pickerValueToString}
                 onValueChange={item.pickerOnValueChange}
                 onUpArrow={item.pickerOnUpArrow}
@@ -299,6 +301,7 @@ class SettingsList extends React.Component {
                   done: {...item.pickerAccessoryStyle},
                   doneDepressed: {fontSize: 17},
                   chevronActive: {...item.pickerAccessoryStyle},
+                  pickerContainer: {...item.pickerContainerStyle}
                 }}
                 value={item.pickerValue}
                 {...item.pickerProps}
