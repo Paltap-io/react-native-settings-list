@@ -297,7 +297,7 @@ class SettingsList extends React.Component {
                 onClose={item.pickerOnClose}
                 disabled={item.pickerDisabled}
                 style={{
-                  inputIOS: [...item.titleInfoStyle, {height: '100%', textAlign: 'right', paddingRight: item.hasNavArrow ? 40 : 15}],
+                  inputIOS: [...item.titleInfoStyle, {height: '100%', textAlign: 'right', paddingRight: item.hasNavArrow ? 24 : 0}],
                   done: {...item.pickerAccessoryStyle},
                   doneDepressed: {fontSize: 17},
                   chevronActive: {...item.pickerAccessoryStyle},
