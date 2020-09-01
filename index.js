@@ -237,10 +237,10 @@ class SettingsList extends React.Component {
 
     return (
       <TouchableHighlight accessible={false} key={'item_' + index} underlayColor={item.underlayColor ? item.underlayColor : this.props.underlayColor} onPress={item.onPress} onLongPress={item.onLongPress} ref={item.itemRef}>
-        <View style={item.itemBoxStyle ? item.itemBoxStyle : [styles.itemBox, {backgroundColor: item.backgroundColor ? item.backgroundColor : this.props.backgroundColor}]}>
+        <View style={[styles.itemBox, {backgroundColor: item.backgroundColor ? item.backgroundColor : this.props.backgroundColor}, item.titleBoxStyle]}>
           {item.icon}
           {item.isAuth ?
-            <View style={item.titleBoxStyle ? item.titleBoxStyle : [styles.titleBox, border]}>
+            <View style={[styles.titleBox, border, item.titleBoxStyle]}>
               <View style={{paddingLeft:5,flexDirection:'column',flex:1}}>
                 <View style={{borderBottomWidth:1,borderColor:this.props.borderColor}}>
                   <TextInput
@@ -265,7 +265,7 @@ class SettingsList extends React.Component {
               </View>
             </View>
           : !item.hasSwipe ?
-          <View style={item.titleBoxStyle ? item.titleBoxStyle : [styles.titleBox, border, {minHeight:item.itemWidth ? item.itemWidth : this.props.defaultItemSize}]}>
+          <View style={[styles.titleBox, border, {minHeight:item.itemWidth ? item.itemWidth : this.props.defaultItemSize}, item.titleBoxStyle]}>
             {titleInfoPosition === 'Bottom' ?
               <View style={{flexDirection:'column',flex:1,justifyContent:'center'}}>
                 {item.isEditable ? this._itemEditableBlock(item, inde, 'Bottom') : this._itemTitleBlock(item, index, 'Bottom')}
@@ -322,7 +322,7 @@ class SettingsList extends React.Component {
                 <Text/>
                 <Text>{'Delete'}</Text>
               </View>
-              <View style={item.titleBoxStyle ? item.titleBoxStyle : [styles.titleBox, border, {backgroundColor: '#fff',minHeight:item.itemWidth ? item.itemWidth : this.props.defaultItemSize}]}>
+              <View style={[styles.titleBox, border, {backgroundColor: '#fff',minHeight:item.itemWidth ? item.itemWidth : this.props.defaultItemSize}, item.titleBoxStyle]}>
                 {titleInfoPosition === 'Bottom' ?
                 <View style={{flexDirection:'column',flex:1,justifyContent:'center'}}>
                   {item.isEditable ? this._itemEditableBlock(item, inde, 'Bottom') : this._itemTitleBlock(item, index, 'Bottom')}
