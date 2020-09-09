@@ -283,6 +283,7 @@ class SettingsList extends React.Component {
             <View style={{position: 'absolute', width: '100%', height: '100%'}}>
               <RNPickerSelect
                 useDatePicker={item.hasDatePicker}
+                dateFormat={item.dateFormat}
                 placeholder={item.pickerPlaceholder}
                 items={item.pickerItems || []}
                 itemWidth={item.pickerItemWidth}
