@@ -304,7 +304,7 @@ class SettingsList extends React.Component {
                   pickerContainer: {...item.pickerContainerStyle}
                 }}
                 value={item.pickerValue}
-                {...item.pickerProps}
+                pickerProps={{...item.pickerProps}}
               /></View>
               : null}
             {this.itemCheckmarkIcon(item)}
