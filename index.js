@@ -575,7 +575,7 @@ SettingsList.Item = createReactClass({
     /**
      * RNPickerSelect value
      */
-    pickerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.number]),
+    pickerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.number, PropTypes.array]),
     /**
      * RNPickerSelect props
      */
