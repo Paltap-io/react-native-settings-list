@@ -99,7 +99,7 @@ The following props are used:
 | hasInfo              | Enable an info sub-section on right side of list item                                                    | React.PropTypes.bool                           |
 | infoIcon             | Info icon                                                                                                | React.PropTypes.node                           |
 | infoStyle            | Style for the info component                                                                             | React.PropTypes.style                          |
-| onnPressInfo         | On press Callback for tap on info component                                                              | React.PropTypes.func                           |
+| onPressInfo          | On press Callback for tap on info component                                                              | React.PropTypes.func                           |
 | hasCheckmark         | Enable a checkmark component                                                                             | React.PropTypes.bool                           |
 | checkmarkIcon        | Checkmark icon                                                                                           | React.PropTypes.node                           |
 | checkmarkStyle       | Style for the checkmark                                                                                  | React.PropTypes.style                          |
@@ -116,7 +116,7 @@ The following props are used:
 | itemRef              | Sets a `ref` on the TouchableHighlight that SettingsList.Item renders to                                 | React.PropTypes.func                           |
 
 
-#### <a name='sli'>\<Picker></a>
+#### Picker
 
 The picker used by this package is <a href="https://github.com/ajp8164/react-native-picker-select">ajp8164/react-native-picker-select</a> (a fork of <a href="https://github.com/lawnstarter/react-native-picker-select">lawnstarter/react-native-picker-select</a>).
 
