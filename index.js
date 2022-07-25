@@ -1,23 +1,22 @@
 'use strict'
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
-
 import {
-  View,
-  TouchableHighlight,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TextInput,
-  Switch,
   Image,
-  ViewPropTypes
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  View,
 } from 'react-native';
+import {ImagePropTypes, TextPropTypes, ViewPropTypes} from 'deprecated-react-native-prop-types';
 
+import PropTypes from 'prop-types';
 import RNPickerSelect from 'react-native-picker-select';
+import React from 'react';
 import {SwipeRow} from 'react-native-swipe-list-view';
+import createReactClass from 'create-react-class';
 
 const ARROW_ICON = require('./img/icon-arrow-settings.png');
 const CHECK_ICON = require('./img/icon-check-settings.png');
@@ -30,9 +29,10 @@ class SettingsList extends React.Component {
     borderHideGroup: PropTypes.bool,
     defaultItemSize: PropTypes.number,
     underlayColor: PropTypes.string,
-    defaultTitleStyle: Text.propTypes.style,
+    defaultTitleStyle: TextPropTypes.style,
     defaultTitleInfoPosition: PropTypes.string,
     scrollViewProps: PropTypes.object,
+    listContainerStyle: PropTypes.object,
   };
 
   static defaultProps ={
@@ -80,9 +80,11 @@ class SettingsList extends React.Component {
   render(){
     return (
       <ScrollView {...this.props.scrollViewProps} ref="_scrollView">
-        {this._getGroups().map((group, index) => {
-          return this._groupView(group, index);
-        })}
+        <View style={this.props.listContainerStyle}>
+          {this._getGroups().map((group, index) => {
+            return this._groupView(group, index);
+          })}
+        </View>
       </ScrollView>
     )
   }
@@ -442,7 +444,7 @@ SettingsList.Header = createReactClass({
   propTypes: {
     visible: PropTypes.bool,
     headerText: PropTypes.string,
-    headerStyle: Text.propTypes.style,
+    headerStyle: TextPropTypes.style,
     headerRef: PropTypes.func,
     headerNumberOfLines: PropTypes.number,
     headerBorderHide: PropTypes.string,
@@ -474,7 +476,7 @@ SettingsList.Item = createReactClass({
      * Title being displayed
      */
     title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    titleStyle: Text.propTypes.style,
+    titleStyle: TextPropTypes.style,
     /**
      * Icon displayed on the left of the settings item
      */
@@ -495,7 +497,7 @@ SettingsList.Item = createReactClass({
     /**
      * Editable Right Side Style
      */
-    editableTextStyle: Text.propTypes.style,
+    editableTextStyle: TextPropTypes.style,
 
     /**
      * Individual item width.  Can be globally set in the parent.  Will become deprecated
@@ -530,14 +532,14 @@ SettingsList.Item = createReactClass({
     hasNavArrow: PropTypes.bool,
     arrowIcon: PropTypes.node,
 
-    arrowStyle: Image.propTypes.style,
+    arrowStyle: ImagePropTypes.style,
     /**
      * Enable or disable a checkmark at the end of the setting item.
      */
     hasCheckmark: PropTypes.bool,
     checkmarkIcon: PropTypes.node,
 
-    checkmarkStyle: Image.propTypes.style,
+    checkmarkStyle: ImagePropTypes.style,
     /**
      * Enable or disable a info at the end of the setting item.
      * Info icon defines item hotspot.
@@ -545,13 +547,13 @@ SettingsList.Item = createReactClass({
     hasInfo: PropTypes.bool,
     infoIcon: PropTypes.node,
 
-    infoStyle: Image.propTypes.style,
+    infoStyle: ImagePropTypes.style,
     /**
      * Called when info icon is pressed.
      */
     onPressInfo: PropTypes.func,
 
-    infoStyle: Image.propTypes.style,
+    infoStyle: ImagePropTypes.style,
     /**
      * Enable or disable a Switch component
      */
@@ -583,7 +585,7 @@ SettingsList.Item = createReactClass({
     /**
      * RNPickerSelect accessory bar style
      */
-    pickerAccessoryStyle: Text.propTypes.style,
+    pickerAccessoryStyle: TextPropTypes.style,
     /**
      * RNPickerSelect accessory bar callbacks
      */
@@ -608,7 +610,7 @@ SettingsList.Item = createReactClass({
      * Right side information on the setting item
      */
     titleInfo: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    titleInfoStyle: Text.propTypes.style,
+    titleInfoStyle: TextPropTypes.style,
     /**
      * If 'Bottom', info is placed beneath the title
      */
