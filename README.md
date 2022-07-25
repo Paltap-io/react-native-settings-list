@@ -63,6 +63,7 @@ The following props are used:
 |-------------------|------------------------------------------------|------------------------|
 | backgroundColor   | Sets default background color for all children | React.PropTypes.string |
 | borderColor       | Sets default border color for all children     | React.PropTypes.string |
+| borderHideGroup   | Disable the border around the list items       | React.PropTypes.func   |
 | defaultItemSize   | Sets default width for all children            | React.PropTypes.number |
 | underlayColor     | Sets default underlayColor for all children    | React.PropTypes.string |
 | defaultTitleStyle | Sets default style for all children's titles   | React.PropTypes.string |
@@ -70,39 +71,139 @@ The following props are used:
 ### <a name='slh'>\<SettingsList.Header></a>
 The following props are used:
 
-| Name        | Description                             | Type                   |
-|-------------|-----------------------------------------|------------------------|
-| headerText  | Text for the header                     | React.PropTypes.string |
-| headerStyle | Sets border color for the settings list | Text.propTypes.style   |
-| headerRef   | Sets a `ref` on the header component    | React.PropTypes.func   |
+| Name            | Description                             | Type                   |
+|-----------------|-----------------------------------------|------------------------|
+| visible         | Should this list render?                | React.PropTypes.bool   |
+| headerText      | Text for the header                     | React.PropTypes.string |
+| headerStyle     | Sets border color for the settings list | Text.propTypes.style   |
+| headerRef       | Sets a `ref` on the header component    | React.PropTypes.func   |
+
 
 ### <a name='sli'>\<SettingsList.Item></a>
 The following props are used:
 
-| Name                | Description                                                                                              | Type                   |
-|---------------------|----------------------------------------------------------------------------------------------------------|------------------------|
-| title               | Text for the item                                                                                        | React.PropTypes.string |
-| titleStyle          | Text Style                                                                                               | Text.propTypes.style   |
-| icon                | A component for the icon.  Doesn't need to be an image                                                   | React.PropTypes.node   |
-| itemWidth           | Changes the individual item's width.  Overwrites **\<SettingsLists>** defaultItemSize                    | React.PropTypes.number |
-| backgroundColor     | Changes the individual item's background color.  Overwrites default **\<SettingsList>** backgroundColor  | React.PropTypes.string |
-| underlayColor       | Changes the individual item's underlayColor color.  Overwrites default **\<SettingsList>** underlayColor | React.PropTypes.string |
-| onPress             | On press Callback for item [used for auth callback as well]                                              | React.PropTypes.func   |
-| hasNavArrow         | Displays a navigation arrow                                                                              | React.PropTypes.bool   |
-| arrowStyle          | Style for the navigation arrow                                                                           | Image.propTypes.style  |
-| arrowIcon           | Inject custom arrow into the end of the item                                                             | React.PropTypes.node   |
-| hasSwitch           | Enable a switch component                                                                                | React.PropTypes.bool   |
-| switchProps         | RN switch props                                                                                          | React.PropTypes.object |
-| switchOnValueChange | On switches value change callback                                                                        | React.PropTypes.func   |
-| titleInfo           | Right side title information string                                                                      | React.PropTypes.string |
-| titleInfoStyle      | Style for title information string                                                                       | Text.propTypes.style   |
-| isAuth              | Sets item as an authorization item                                                                       | React.PropTypes.bool   |
-| authPropsUser       | Changes the props for the first TextInput component; overwrites default                                  | React.PropTypes.node   |
-| authPropsPW         | Changes the props for the second TextInput component; overwrites default                                 | React.PropTypes.node   |
-| itemRef             | Sets a `ref` on the TouchableHighlight that SettingsList.Item renders to                                 | React.PropTypes.func   |
+| Name                 | Description                                                                                              | Type                   |
+|----------------------|----------------------------------------------------------------------------------------------------------|------------------------|
+| visible              | Should this item render?                                                                                 | React.PropTypes.bool                           |
+| title                | Text for the item                                                                                        | React.PropTypes.string, React.PropTypes.object |
+| titleStyle           | Text Style                                                                                               | Text.propTypes.style                           |
+| icon                 | A component for the icon.  Doesn't need to be an image                                                   | React.PropTypes.node                           |
+| itemWidth            | Changes the individual item's width.  Overwrites **\<SettingsLists>** defaultItemSize                    | React.PropTypes.number                         |
+| backgroundColor      | Changes the individual item's background color.  Overwrites default **\<SettingsList>** backgroundColor  | React.PropTypes.string                         |
+| underlayColor        | Changes the individual item's underlayColor color.  Overwrites default **\<SettingsList>** underlayColor | React.PropTypes.string                         |
+| borderHide           | Disable the border around the list item                                                                  | React.PropTypes.bool                           |
+| onPress              | On press Callback for item [used for auth callback as well]                                              | React.PropTypes.func                           |
+| hasNavArrow          | Displays a navigation arrow                                                                              | React.PropTypes.bool                           |
+| arrowStyle           | Style for the navigation arrow                                                                           | Image.propTypes.style                          |
+| arrowIcon            | Inject custom arrow into the end of the item                                                             | React.PropTypes.node                           |
+| hasInfo              | Enable an info sub-section on right side of list item                                                    | React.PropTypes.bool                           |
+| infoIcon             | Info icon                                                                                                | React.PropTypes.node                           |
+| infoStyle            | Style for the info component                                                                             | React.PropTypes.style                          |
+| onnPressInfo         | On press Callback for tap on info component                                                              | React.PropTypes.func                           |
+| hasCheckmark         | Enable a checkmark component                                                                             | React.PropTypes.bool                           |
+| checkmarkIcon        | Checkmark icon                                                                                           | React.PropTypes.node                           |
+| checkmarkStyle       | Style for the checkmark                                                                                  | React.PropTypes.style                          |
+| hasPicker            | Enable a picker for the list item, picker value is shown in the list item, see Picker props              | React.PropTypes.bool                           |
+| hasDatePicker        | useDatePicker - react-native-picker-select                                                               | React.PropTypes.bool                           |
+| hasSwitch            | Enable a switch component                                                                                | React.PropTypes.bool                           |
+| switchProps          | RN switch props                                                                                          | React.PropTypes.object                         |
+| switchOnValueChange  | On switches value change callback                                                                        | React.PropTypes.func                           |
+| titleInfo            | Right side title information string                                                                      | React.PropTypes.string                         |
+| titleInfoStyle       | Style for title information string                                                                       | Text.propTypes.style                           |
+| isAuth               | Sets item as an authorization item                                                                       | React.PropTypes.bool                           |
+| authPropsUser        | Changes the props for the first TextInput component; overwrites default                                  | React.PropTypes.node                           |
+| authPropsPW          | Changes the props for the second TextInput component; overwrites default                                 | React.PropTypes.node                           |
+| itemRef              | Sets a `ref` on the TouchableHighlight that SettingsList.Item renders to                                 | React.PropTypes.func                           |
+
+
+#### <a name='sli'>\<Picker></a>
+
+The picker used by this package is <a href="https://github.com/ajp8164/react-native-picker-select">ajp8164/react-native-picker-select</a> (a fork of <a href="https://github.com/lawnstarter/react-native-picker-select">lawnstarter/react-native-picker-select</a>).
+
+The following props are used:
+
+| Name                 | Description                                                       | Type                                                                  |
+|----------------------|-------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pickerAccessoryStyle | Picker accessory bar style                                        | React.PropTypes.style                                                 |
+| pickerContainerStyle | Picker container style                                            | React.PropTypes.style                                                 |
+| pickerDateFormat     | dateFormat                                                        | React.PropTypes.string                                                |
+| pickerPlaceholder    | placeholder                                                       | React.PropTypes.object                                                |
+| pickerItems          | items                                                             | React.PropTypes.array of picker item                                  |
+| pickerItemWidth      | itemWidth                                                         | React.PropTypes.array of widths (number or string)                    |
+| pickerLabels         | labels                                                            | React.PropTypes.array of string                                       |
+| pickerLabelWidth     | labelWidth                                                        | React.PropTypes.array of widths (number or string)                    |
+| pickerValueToString  | valueToString                                                     | React.PropTypes.func                                                  |
+| pickerValue          | The picker value                                                  | PropTypes.string, PropTypes.object, PropTypes.number, PropTypes.array |
+| pickerOnUpArrow      | Picker accessory bar callback when up arrow tapped                | React.PropTypes.func                                                  |
+| pickerOnDownArrow    | Picker accessory bar callback when down arrow tapped              | React.PropTypes.func                                                  |
+| pickerOnDonePress    | Picker accessory bar callback when Done tapped                    | React.PropTypes.func                                                  |
+| pickerOnClose        | Picker accessory bar callback when Close tapped                   | React.PropTypes.func                                                  |
+| pickerOnOpen         | Callback when the picker component is opened                      | React.PropTypes.func                                                  |
+| pickerOnValueChange  | Callback when the picker value changes                            | React.PropTypes.func                                                  |
+| pickerDisabled       | Enable a picker for interaction                                   | React.PropTypes.bool                                                  |
+| other picker props   | You can pass through other react-native-select picker properties  |                                                                       |
+
+Example picker usage:
+```
+export const cellConfigurationOptions: OptionType[][] = [
+  [
+    { label: '1 Series', labelShort: '1S', value: '1' },
+    { label: '2 Series', labelShort: '2S', value: '2' },
+    { label: '3 Series', labelShort: '3S', value: '3' },
+  ],
+  [
+    { label: 'None', labelShort: '', value: '0' },
+    { label: '1 Parallel', labelShort: '1P', value: '1' },
+    { label: '2 Parallel', labelShort: '2P', value: '2' },
+    { label: '3 Parallel', labelShort: '3P', value: '3' },
+  ],
+];
+
+...
+
+<SettingsList.Item
+  title={'Cell Configuration'}
+  titleStyle={theme.styles.textNormal}
+  titleInfoStyle={[theme.styles.textNormal]}
+  hasPicker={true}
+  pickerPlaceholder={{}}
+  pickerItems={cellConfigurationOptions}
+  pickerValue={battery.cellConfiguration}
+  pickerOnValueChange={(value: string) =>
+    updateBattery({ cellConfiguration: value })
+  }
+  pickerItemWidth={['33%', '33%']}
+  pickerValueToString={Utils.pickerSelectItemToString}
+  pickerAccessoryStyle={{
+    color: theme.colors.button,
+    borderColor: theme.colors.button,
+  }}
+/>
+
+```
+
+Example date picker usage:
+```
+<SettingsList.Item
+  title={'Purchase Date'}
+  titleStyle={theme.styles.textNormal}
+  titleInfoStyle={[theme.styles.textNormal]}
+  hasNavArrow={false}
+  hasDatePicker={true}
+  pickerValue={DateTime.fromISO(product.detail.acquired)}
+  pickerOnValueChange={(value: DateTime) => {
+    updateProduct({ acquired: value.toISO() });
+  }}
+  pickerDateFormat={'M/D/YYYY'}
+  pickerAccessoryStyle={{
+    color: theme.colors.button,
+    borderColor: theme.colors.button,
+  }}
+/>
+
+```
 
 ###### <a href='#top'>Top</a>
-
 
 ## <a name='simple'>Simple Example</a>
 ---

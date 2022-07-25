@@ -285,7 +285,7 @@ class SettingsList extends React.Component {
             <View style={{position: 'absolute', width: '100%', height: '100%'}}>
               <RNPickerSelect
                 useDatePicker={item.hasDatePicker}
-                dateFormat={item.dateFormat}
+                dateFormat={item.pickerDateFormat}
                 placeholder={item.pickerPlaceholder}
                 items={item.pickerItems || []}
                 itemWidth={item.pickerItemWidth}
@@ -447,7 +447,6 @@ SettingsList.Header = createReactClass({
     headerStyle: TextPropTypes.style,
     headerRef: PropTypes.func,
     headerNumberOfLines: PropTypes.number,
-    headerBorderHide: PropTypes.string,
   },
   getDefaultProps() {
     return {
@@ -553,7 +552,6 @@ SettingsList.Item = createReactClass({
      */
     onPressInfo: PropTypes.func,
 
-    infoStyle: ImagePropTypes.style,
     /**
      * Enable or disable a Switch component
      */
